@@ -1,5 +1,6 @@
 import unittest
-import wasmer/[wasmc, wasmerc, utils]
+import wasmer/[wasmc, wasmerc]
+import wasmer
 suite "Basic wasm test":
   const watString = """
     (module
@@ -12,9 +13,8 @@ suite "Basic wasm test":
     """
 
   var
-    wat, wasmBytes: wasmByteVecT
-
-  wat.addr.wasmByteVecNew(csize_t high(watString), cast[ptr byte](watstring.cstring))
+    wat = newWasmByteVec(watString)
+    wasmBytes: WasmByteVec
   wat2wasm(wat.addr, wasmBytes.addr)
   var
     engine = wasmEngineNew()
@@ -26,10 +26,10 @@ suite "Basic wasm test":
     if module.isNil:
       echo getWasmerError()
     assert module != nil
-    wasmByteVecDelete wasmBytes.addr
+    delete wasmBytes.addr
 
   var
-    importObject: wasmExternVecT
+    importObject: WasmExternVec
     instance: ptr WasmInstance
 
   test "Instantiate Module":
@@ -38,39 +38,34 @@ suite "Basic wasm test":
       echo getWasmerError()
     assert instance != nil
 
-  var exports: wasmExternVecT
-  wasmInstanceExports(instance, addr exports)
+  var exports: WasmExternVec
+  instance.exports(addr exports)
 
   if exports.size == 0:
     echo getWasmerError()
   assert exports.size > 0
 
   test "Retrive 'sum' func":
-    var sumFunc = wasmExternAsFunc(exports.data[0])
+    var sumFunc = exports.data[0].asFunc
     if sumFunc == nil:
       echo getWasmerError()
     assert sumFunc != nil
 
     test "Call 'sum' func":
       var
-        argVals = [wasmVal(3i32), wasmVal(4i32)]
-        resultVals: array[1, WasmVal]
-        args = wasmArrayVec(argVals)
-        results = wasmArrayVec(resultVals)
-      let call = wasmFuncCall(sumFunc, args.addr, results.addr)
-      if call != nil:
-        echo getWasmerError()
-      assert call.isNil
+        args = [wasmVal(3i32), wasmVal(4i32)]
+        results: array[1, WasmVal]
+      sumFunc.call(args, results)
       test "Ensure sum works":
-        check results.data[0].i32 == 7
+        check results[0].i32 == 7
 
 
 
-  wasmModuleDelete(module)
-  wasmexternVecDelete(addr exports)
-  wasmInstanceDelete(instance)
-  wasmStoreDelete(store)
-  wasmEngineDelete(engine)
+  delete(module)
+  delete(addr exports)
+  delete(instance)
+  delete(store)
+  delete(engine)
 
 
 

@@ -181,7 +181,7 @@ proc wasm_config_set_features*(config: ptr WasmConfig;
     importc: "wasm_config_set_features", dynlib: wasmer.}
 proc wasm_config_set_target*(config: ptr WasmConfig; target: ptr wasmer_target_t) {.
     cdecl, importc: "wasm_config_set_target", dynlib: wasmer.}
-## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasmer_cpu_features_add ( struct wasmer_cpu_features_t * cpu_features , const wasm_name_t * feature ) ;
+## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasmer_cpu_features_add ( struct wasmer_cpu_features_t * cpu_features , const WasmName * feature ) ;
 ## Error: expected ';'!!!
 
 proc wasmer_cpu_features_delete*(cpu_features: ptr wasmer_cpu_features_t) {.cdecl,
@@ -247,14 +247,14 @@ proc wasmer_metering_new*(initial_limit: uint64;
 proc wasmer_metering_set_remaining_points*(instance: ptr WasmInstance;
     new_limit: uint64) {.cdecl, importc: "wasmer_metering_set_remaining_points",
                          dynlib: wasmer.}
-proc wasmer_module_name*(module: ptr WasmModule; `out`: ptr wasm_name_t) {.cdecl,
+proc wasmer_module_name*(module: ptr WasmModule; `out`: ptr WasmName) {.cdecl,
     importc: "wasmer_module_name", dynlib: wasmer.}
-## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasmer_module_set_name ( WasmModule * module , const wasm_name_t * name ) ;
+## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasmer_module_set_name ( WasmModule * module , const WasmName * name ) ;
 ## Error: expected ';'!!!
 
-proc wasmer_named_extern_module*(named_extern: ptr wasmer_named_extern_t): ptr wasm_name_t {.
+proc wasmer_named_extern_module*(named_extern: ptr wasmer_named_extern_t): ptr WasmName {.
     cdecl, importc: "wasmer_named_extern_module", dynlib: wasmer.}
-proc wasmer_named_extern_name*(named_extern: ptr wasmer_named_extern_t): ptr wasm_name_t {.
+proc wasmer_named_extern_name*(named_extern: ptr wasmer_named_extern_t): ptr WasmName {.
     cdecl, importc: "wasmer_named_extern_name", dynlib: wasmer.}
 proc wasmer_named_extern_unwrap*(named_extern: ptr wasmer_named_extern_t): ptr WasmExtern {.
     cdecl, importc: "wasmer_named_extern_unwrap", dynlib: wasmer.}
@@ -279,7 +279,7 @@ proc wasmer_target_new*(triple: ptr wasmer_triple_t;
     cdecl, importc: "wasmer_target_new", dynlib: wasmer.}
 proc wasmer_triple_delete*(triple: ptr wasmer_triple_t) {.cdecl,
     importc: "wasmer_triple_delete", dynlib: wasmer.}
-proc wasmer_triple_new*(triple: ptr wasm_name_t): ptr wasmer_triple_t {.cdecl,
+proc wasmer_triple_new*(triple: ptr WasmName): ptr wasmer_triple_t {.cdecl,
     importc: "wasmer_triple_new", dynlib: wasmer.}
 proc wasmer_triple_new_from_host*(): ptr wasmer_triple_t {.cdecl,
     importc: "wasmer_triple_new_from_host", dynlib: wasmer.}
@@ -292,7 +292,7 @@ proc wasmer_version_patch*(): uint8 {.cdecl, importc: "wasmer_version_patch",
                                      dynlib: wasmer.}
 proc wasmer_version_pre*(): cstring {.cdecl, importc: "wasmer_version_pre",
                                    dynlib: wasmer.}
-proc wat2wasm*(wat: ptr wasm_byte_vec_t; `out`: ptr wasm_byte_vec_t) {.cdecl,
+proc wat2wasm*(wat: ptr WasmByteVec; `out`: ptr WasmByteVec) {.cdecl,
     importc: "wat2wasm", dynlib: wasmer.}
 
 
