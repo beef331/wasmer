@@ -155,31 +155,31 @@ proc wasi_env_read_stderr*(env: ptr wasi_env_t; buffer: cstring; buffer_len: uin
     cdecl, importc: "wasi_env_read_stderr", dynlib: wasmer.}
 proc wasi_env_read_stdout*(env: ptr wasi_env_t; buffer: cstring; buffer_len: uint): int {.
     cdecl, importc: "wasi_env_read_stdout", dynlib: wasmer.}
-## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasi_get_imports ( const wasm_store_t * store , const wasm_module_t * module , const struct wasi_env_t * wasi_env , wasm_extern_vec_t * imports ) ;
+## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasi_get_imports ( const wasm_store_t * store , const WasmModule * module , const struct wasi_env_t * wasi_env , wasm_extern_vec_t * imports ) ;
 ## Error: expected ';'!!!
 
-proc wasi_get_start_function*(instance: ptr wasm_instance_t): ptr wasm_func_t {.cdecl,
+proc wasi_get_start_function*(instance: ptr WasmInstance): ptr WasmFunc {.cdecl,
     importc: "wasi_get_start_function", dynlib: wasmer.}
-## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasi_get_unordered_imports ( const wasm_store_t * store , const wasm_module_t * module , const struct wasi_env_t * wasi_env , struct wasmer_named_extern_vec_t * imports ) ;
+## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasi_get_unordered_imports ( const wasm_store_t * store , const WasmModule * module , const struct wasi_env_t * wasi_env , struct wasmer_named_extern_vec_t * imports ) ;
 ## Error: expected ';'!!!
 
-proc wasi_get_wasi_version*(module: ptr wasm_module_t): wasi_version_t {.cdecl,
+proc wasi_get_wasi_version*(module: ptr WasmModule): wasi_version_t {.cdecl,
     importc: "wasi_get_wasi_version", dynlib: wasmer.}
-## !!!Ignored construct:  void wasm_config_canonicalize_nans ( wasm_config_t * config , # ./wasmert.h 3 4 [NewLine] _Bool # ./wasmert.h [NewLine] enable ) ;
+## !!!Ignored construct:  void wasm_config_canonicalize_nans ( WasmConfig * config , # ./wasmert.h 3 4 [NewLine] _Bool # ./wasmert.h [NewLine] enable ) ;
 ## Error: token expected: ; but got: (!!!
 
-proc wasm_config_push_middleware*(config: ptr wasm_config_t;
+proc wasm_config_push_middleware*(config: ptr WasmConfig;
                                  middleware: ptr wasmer_middleware_t) {.cdecl,
     importc: "wasm_config_push_middleware", dynlib: wasmer.}
-proc wasm_config_set_compiler*(config: ptr wasm_config_t;
+proc wasm_config_set_compiler*(config: ptr WasmConfig;
                               compiler: wasmer_compiler_t) {.cdecl,
     importc: "wasm_config_set_compiler", dynlib: wasmer.}
-proc wasm_config_set_engine*(config: ptr wasm_config_t; engine: wasmer_engine_t) {.
+proc wasm_config_set_engine*(config: ptr WasmConfig; engine: wasmer_engine_t) {.
     cdecl, importc: "wasm_config_set_engine", dynlib: wasmer.}
-proc wasm_config_set_features*(config: ptr wasm_config_t;
+proc wasm_config_set_features*(config: ptr WasmConfig;
                               features: ptr wasmer_features_t) {.cdecl,
     importc: "wasm_config_set_features", dynlib: wasmer.}
-proc wasm_config_set_target*(config: ptr wasm_config_t; target: ptr wasmer_target_t) {.
+proc wasm_config_set_target*(config: ptr WasmConfig; target: ptr wasmer_target_t) {.
     cdecl, importc: "wasm_config_set_target", dynlib: wasmer.}
 ## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasmer_cpu_features_add ( struct wasmer_cpu_features_t * cpu_features , const wasm_name_t * feature ) ;
 ## Error: expected ';'!!!
@@ -236,27 +236,27 @@ proc wasmer_metering_as_middleware*(metering: ptr wasmer_metering_t): ptr wasmer
     cdecl, importc: "wasmer_metering_as_middleware", dynlib: wasmer.}
 proc wasmer_metering_delete*(metering: ptr wasmer_metering_t) {.cdecl,
     importc: "wasmer_metering_delete", dynlib: wasmer.}
-proc wasmer_metering_get_remaining_points*(instance: ptr wasm_instance_t): uint64 {.
+proc wasmer_metering_get_remaining_points*(instance: ptr WasmInstance): uint64 {.
     cdecl, importc: "wasmer_metering_get_remaining_points", dynlib: wasmer.}
 proc wasmer_metering_new*(initial_limit: uint64;
                          cost_function: wasmer_metering_cost_function_t): ptr wasmer_metering_t {.
     cdecl, importc: "wasmer_metering_new", dynlib: wasmer.}
-## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasmer_metering_points_are_exhausted ( const wasm_instance_t * instance ) ;
+## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasmer_metering_points_are_exhausted ( const WasmInstance * instance ) ;
 ## Error: expected ';'!!!
 
-proc wasmer_metering_set_remaining_points*(instance: ptr wasm_instance_t;
+proc wasmer_metering_set_remaining_points*(instance: ptr WasmInstance;
     new_limit: uint64) {.cdecl, importc: "wasmer_metering_set_remaining_points",
                          dynlib: wasmer.}
-proc wasmer_module_name*(module: ptr wasm_module_t; `out`: ptr wasm_name_t) {.cdecl,
+proc wasmer_module_name*(module: ptr WasmModule; `out`: ptr wasm_name_t) {.cdecl,
     importc: "wasmer_module_name", dynlib: wasmer.}
-## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasmer_module_set_name ( wasm_module_t * module , const wasm_name_t * name ) ;
+## !!!Ignored construct:  _Bool # ./wasmert.h [NewLine] wasmer_module_set_name ( WasmModule * module , const wasm_name_t * name ) ;
 ## Error: expected ';'!!!
 
 proc wasmer_named_extern_module*(named_extern: ptr wasmer_named_extern_t): ptr wasm_name_t {.
     cdecl, importc: "wasmer_named_extern_module", dynlib: wasmer.}
 proc wasmer_named_extern_name*(named_extern: ptr wasmer_named_extern_t): ptr wasm_name_t {.
     cdecl, importc: "wasmer_named_extern_name", dynlib: wasmer.}
-proc wasmer_named_extern_unwrap*(named_extern: ptr wasmer_named_extern_t): ptr wasm_extern_t {.
+proc wasmer_named_extern_unwrap*(named_extern: ptr wasmer_named_extern_t): ptr WasmExtern {.
     cdecl, importc: "wasmer_named_extern_unwrap", dynlib: wasmer.}
 proc wasmer_named_extern_vec_copy*(out_ptr: ptr wasmer_named_extern_vec_t;
                                   in_ptr: ptr wasmer_named_extern_vec_t) {.cdecl,

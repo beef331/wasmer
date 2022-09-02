@@ -19,7 +19,7 @@ suite "Basic wasm test":
   var
     engine = wasmEngineNew()
     store = wasmStoreNew(engine)
-    module: ptr wasmModuleT
+    module: ptr WasmModule
 
   test "Compile the Module":
     module = wasmModuleNew(store, addr wasmBytes)
@@ -30,7 +30,7 @@ suite "Basic wasm test":
 
   var
     importObject: wasmExternVecT
-    instance: ptr wasmInstanceT
+    instance: ptr WasmInstance
 
   test "Instantiate Module":
     instance = wasmInstanceNew(store, module, addr importObject, nil)
@@ -54,7 +54,7 @@ suite "Basic wasm test":
     test "Call 'sum' func":
       var
         argVals = [wasmVal(3i32), wasmVal(4i32)]
-        resultVals: array[1, wasmValT]
+        resultVals: array[1, WasmVal]
         args = wasmArrayVec(argVals)
         results = wasmArrayVec(resultVals)
       let call = wasmFuncCall(sumFunc, args.addr, results.addr)
